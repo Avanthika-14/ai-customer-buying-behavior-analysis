@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Customer Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <main class="main-content">
+
+        <header class="topbar">
+    <div>
+        <h1>Welcome, Customer 👋</h1>
+        <p>Your personal buying activity dashboard</p>
+    </div>
+
+    <div class="customer-profile">
+        <span>Customer ID: {{ customer_id }}</span>
+        <a href="{{ url_for('customer_logout') }}">Logout</a>
+    </div>
+</header>
+
+        <section class="kpi-container">
+
+            <div class="kpi-card">
+                <h3>Total Orders</h3>
+                <div class="kpi-value">{{ total_orders }}</div>
+                <p>Your order activity</p>
+            </div>
+
+            <div class="kpi-card">
+                <h3>Total Spending</h3>
+                <div class="kpi-value">₹{{ "{:,.2f}".format(total_spend) }}</div>
+                <p>Your total purchase value</p>
+            </div>
+
+            <div class="kpi-card">
+                <h3>Average Order Value</h3>
+                <div class="kpi-value">₹</div>
+                <p>Average spending per order</p>
+            </div>
+
+            <div class="kpi-card">
+                <h3>Customer Segment</h3>
+                <div class="kpi-value">{{ segment }}</div>
+                <p>Your buying segment</p>
+            </div>
+
+        </section>
+
+        <section class="section">
+
+            <div class="section-header">
+                <h2>My Account</h2>
+                <p>Manage and understand your customer activity</p>
+            </div>
+
+            <div class="comparison-cards">
+
+                <div class="comparison-card">
+                    <h3>🛒 My Orders</h3>
+                    <p>View your order history and purchase activity.</p>
+                </div>
+
+                <div class="comparison-card">
+                    <h3>💰 My Spending</h3>
+                    <p>Track your spending and average order value.</p>
+                </div>
+
+                <div class="comparison-card">
+                    <h3>📊 My Insights</h3>
+                    <p>Understand your purchasing behavior and customer segment.</p>
+                </div>
+
+            </div>
+
+            <div class="comparison-card">
+
+    <h3>🛍️ Shop Products</h3>
+
+    <p>
+        Explore products, check customer insights
+        and find what you need.
+    </p>
+
+    <a href="{{ url_for('products') }}"
+       class="view-product-btn">
+        Explore Products
+    </a>
+
+</div>
+        </section>
+
+        <section class="section">
+
+    <div class="section-header">
+        <h2>My Insights 📊</h2>
+        <p>Personalized insights based on your buying behavior</p>
+    </div>
+
+    <div class="comparison-cards">
+
+        <div class="comparison-card">
+            <h3>🛒 Purchase Activity</h3>
+            <p>
+                You have completed
+                <strong>{{ total_orders }}</strong>
+                orders.
+            </p>
+        </div>
+
+        <div class="comparison-card">
+            <h3>💰 Spending Pattern</h3>
+            <p>
+                Your average order value is
+                <strong>₹{{ "{:,.2f}".format(avg_order_value) }}</strong>.
+            </p>
+        </div>
+
+        <div class="comparison-card">
+            <h3>🏷️ Customer Segment</h3>
+            <p>
+                You are currently classified as
+                <strong>{{ segment }}</strong>.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+        <section class="section">
+
+    <div class="section-header">
+        <h2>My Orders</h2>
+        <p>Your recent purchase activity</p>
+    </div>
+
+    <div class="chart-box">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Date</th>
+                    <th>Category</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tbody>
+
+    {% for order in orders %}
+    <tr>
+        <td>{{ order.order_id }}</td>
+        <td>{{ order.order_date }}</td>
+        <td>{{ order.category }}</td>
+        <td>{{ order.product }}</td>
+        <td>{{ order.quantity }}</td>
+        <td>₹{{ "{:,.2f}".format(order.item_total) }}</td>
+    </tr>
+    {% endfor %}
+
+</tbody>
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+        <div class="customer-logout">
+    <a href="{{ url_for('customer_logout') }}">Logout</a>
+</div>
+<footer class="customer-footer">
+    <p>AI Customer Buying Behavior Analysis</p>
+    <span>Personalized Customer Analytics Dashboard</span>
+</footer>
+    </main>
+
+</body>
+</html>

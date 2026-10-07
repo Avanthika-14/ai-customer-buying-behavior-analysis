@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Customer Segmentation</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <h1>Customer Segmentation</h1>
+                <p>Customers grouped by buying behavior</p>
+            </div>
+        </header>
+
+        <section class="section">
+
+            <div class="section-header">
+                <h2>Customer Segments</h2>
+                <p>Customer distribution by segment</p>
+            </div>
+
+            <div class="chart-box">
+                <canvas id="segmentationChart"></canvas>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    new Chart(document.getElementById("segmentationChart"), {
+        type: "doughnut",
+        data: {
+            labels: ["Rare Buyers", "Occasional Buyers", "High Spenders", "Frequent Buyers"],
+            datasets: [{
+                data: [10, 12, 8, 5]
+            }]
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+Month-over-Month AI Analysis: 2026-08 (last month) vs 2026-09 (this month)
+
+Overall revenue changed by 26.53% month-over-month (Rs.2736241 -> Rs.3462033).
+
+- Sweets & Festive: 106.82% change -> Strong Growth (likely driven by festival season demand).
+- Staples: 26.7% change -> Moderate Growth (showing rising customer interest).
+- Dairy: 11.95% change -> Stable (demand remained largely consistent).
+- Personal Care: 9.72% change -> Stable (demand remained largely consistent).
+- Fruits & Vegetables: 7.04% change -> Stable (demand remained largely consistent).
+- Snacks: 5.19% change -> Stable (demand remained largely consistent).
+- Beverages: -29.68% change -> Moderate Decline (possibly due to seasonal/weather-related drop in demand).
+
+Top priority actions:
+- Increase stock for 'Sweets & Festive' (up 106.82%) to avoid running out.
+- Investigate 'Beverages' (down 29.68%) and consider promotions or discounts.

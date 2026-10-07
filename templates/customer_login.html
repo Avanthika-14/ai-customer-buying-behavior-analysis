@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Customer Login</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body class="customer-login-page">
+
+    <div class="customer-login-container">
+
+        <div class="customer-login-box">
+
+            <div class="customer-login-icon">
+                👤
+            </div>
+
+            <h1>Customer Login</h1>
+
+            <p class="login-subtitle">
+                Access your customer dashboard
+            </p>
+
+            {% if error %}
+                <p class="login-error">{{ error }}</p>
+            {% endif %}
+
+            <form method="POST">
+
+                <label>Email Address</label>
+
+                <input type="email"
+                       name="email"
+                       placeholder="Enter your email"
+                       required>
+
+                <label>Password</label>
+
+                <input type="password"
+                       name="password"
+                       placeholder="Enter your password"
+                       required>
+
+                <button type="submit">
+                    Login
+                </button>
+
+            </form>
+
+            <p class="customer-login-footer">
+                Customer Access Portal
+            </p>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

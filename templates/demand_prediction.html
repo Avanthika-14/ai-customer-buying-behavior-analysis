@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Demand Prediction</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <h1>Demand Prediction</h1>
+                <p>Predicted demand for next month</p>
+            </div>
+        </header>
+
+        <section class="section">
+
+            <div class="section-header">
+                <h2>Next Month Demand</h2>
+                <p>Category-wise predicted demand</p>
+            </div>
+
+            <div class="chart-box">
+                <canvas id="demandPredictionChart"></canvas>
+            </div>
+
+        </section>
+
+    </main>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const demandNames = JSON.parse('{{ demand_categories | tojson }}');
+    const demandValues = JSON.parse('{{ predicted_demand | tojson }}');
+
+    new Chart(document.getElementById("demandPredictionChart"), {
+            type: "bar",
+            data: {
+            labels: demandNames,
+            datasets: [{
+            label: "Predicted Demand",
+            data: demandValues
+            }]
+        },
+            options: {
+            responsive: true
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Cart</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<main class="main-content">
+
+    <header class="topbar">
+
+        <div>
+            <h1>My Cart 🛒</h1>
+            <p>Review your selected products</p>
+        </div>
+
+        <a href="{{ url_for('products') }}">
+            Continue Shopping
+        </a>
+
+    </header>
+
+
+    <section class="section">
+
+        <div class="section-header">
+
+            <h2>Cart Items</h2>
+
+            <p>Your selected products</p>
+
+        </div>
+
+
+       <div class="chart-box">
+
+    {% if cart_items %}
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for item in cart_items %}
+
+            <tr>
+
+                <td>{{ item.product }}</td>
+
+                <td>{{ item.quantity }}</td>
+
+                <td>
+                    <form method="POST"
+                          action="{{ url_for('remove_from_cart', item_index=loop.index0) }}">
+
+                        <button type="submit"
+                                class="buy-product-btn">
+                            🗑️ Remove
+                        </button>
+
+                    </form>
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+    <br>
+
+    <div style="text-align:center;">
+
+        <a href="{{ url_for('products') }}"
+           class="view-product-btn">
+            🛍️ Continue Shopping
+        </a>
+
+        <form method="POST"
+      action="{{ url_for('place_order') }}">
+
+    <button type="submit" class="buy-product-btn">
+        💳 Place Order
+    </button>
+
+</form>
+
+    </div>
+
+    {% else %}
+
+    <p style="text-align:center;">
+        Your cart is empty 🛒
+    </p>
+
+    <div style="text-align:center;">
+
+        <a href="{{ url_for('products') }}"
+           class="view-product-btn">
+            🛍️ Explore Products
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+    </section>
+
+</main>
+
+</body>
+</html>

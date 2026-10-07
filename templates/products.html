@@ -1,0 +1,188 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Products</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<main class="main-content">
+
+    <!-- Header -->
+    <header class="topbar">
+        <div>
+            <h1>Smart Products 🛍️</h1>
+            <p>Explore products and make better purchase decisions</p>
+        </div>
+
+        <a href="{{ url_for('customer_logout') }}"
+           class="customer-logout-btn">
+            Logout
+        </a>
+    </header>
+
+
+    <!-- Search & Filter -->
+    <section class="section">
+
+        <div class="section-header">
+            <h2>Find Your Product 🔍</h2>
+            <p>Search and explore available products</p>
+        </div>
+
+        <div class="product-search">
+            <input type="text"
+                   id="productSearch"
+                   placeholder="Search for a product...">
+        </div>
+
+        <div class="product-filter">
+            <select id="categoryFilter">
+                <option value="all">All Categories</option>
+
+                {% for category in categories %}
+                <option value="{{ category }}">{{ category }}</option>
+                {% endfor %}
+
+            </select>
+        </div>
+
+    </section>
+
+
+    <!-- Products -->
+    <section class="section">
+
+        <div class="section-header">
+            <h2>Available Products</h2>
+            <p>Choose a product to view more details</p>
+        </div>
+
+        <div class="product-grid" id="productGrid">
+
+            {% for product in products %}
+
+            <div class="product-card"
+                 data-category="{{ product.category }}">
+
+                <div class="product-icon">
+                    🛒
+                </div>
+
+                <h3>{{ product.product }}</h3>
+
+                <p>
+                    View product details and customer insights
+                </p>
+
+                <a href="{{ url_for('product_details', product_name=product.product) }}"
+                   class="view-product-btn">
+                    View Details
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        <!-- No Results Message -->
+        <div id="noResults"
+             style="display:none; text-align:center; padding:30px;">
+
+            <h3>No products found 🔍</h3>
+            <p>Try another product name or category.</p>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- Search & Filter Script -->
+<script>
+
+    const searchInput = document.getElementById("productSearch");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const productCards = document.querySelectorAll(".product-card");
+    const noResults = document.getElementById("noResults");
+
+
+    function filterProducts() {
+
+        const searchValue =
+            searchInput.value.toLowerCase().trim();
+
+        const selectedCategory =
+            categoryFilter.value.toLowerCase().trim();
+
+        let visibleProducts = 0;
+
+
+        productCards.forEach(function(card) {
+
+            const productName =
+                card.querySelector("h3")
+                    .textContent
+                    .toLowerCase()
+                    .trim();
+
+            const productCategory =
+                (card.dataset.category || "")
+                    .toLowerCase()
+                    .trim();
+
+
+            const matchesSearch =
+                productName.includes(searchValue);
+
+            const matchesCategory =
+                selectedCategory === "all" ||
+                productCategory === selectedCategory;
+
+
+            if (matchesSearch && matchesCategory) {
+
+                card.style.display = "flex";
+                visibleProducts++;
+
+            } else {
+
+                card.style.display = "none";
+
+            }
+
+        });
+
+
+        if (visibleProducts === 0) {
+
+            noResults.style.display = "block";
+
+        } else {
+
+            noResults.style.display = "none";
+
+        }
+
+    }
+
+
+    searchInput.addEventListener("input", filterProducts);
+
+    categoryFilter.addEventListener("change", filterProducts);
+
+</script>
+
+</body>
+</html>
+```

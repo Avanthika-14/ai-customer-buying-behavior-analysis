@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Customer Analytics</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <h1>Customer Analytics</h1>
+                <p>Customer buying behavior details</p>
+            </div>
+        </header>
+
+        <section class="section">
+
+            <div class="section-header">
+                <h2>Customer Details</h2>
+                <p>Orders, spending and customer segments</p>
+            </div>
+
+            <div class="chart-box">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Customer ID</th>
+                            <th>Total Orders</th>
+                            <th>Total Spend</th>
+                            <th>Average Order Value</th>
+                            <th>Segment</th>
+                        </tr>
+                    </thead>
+
+                  <tbody>
+    {% for customer in customers %}
+    <tr>
+        <td>{{ customer['customer_id'] }}</td>
+        <td>{{ customer['total_orders'] }}</td>
+        <td>{{ customer['total_spend'] }}</td>
+        <td>{{ customer['avg_order_value'] }}</td>
+        <td>{{ customer['segment'] }}</td>
+    </tr>
+    {% endfor %}
+</tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>

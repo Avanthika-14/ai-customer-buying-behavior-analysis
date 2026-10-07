@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ product_name }} - Product Details</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<main class="main-content">
+
+    <header class="topbar">
+
+        <div>
+            <h1>{{ product_name }} 🛍️</h1>
+            <p>Product details and customer purchase insights</p>
+        </div>
+
+        <a href="{{ url_for('products') }}"
+           class="view-product-btn">
+            ← Back to Products
+        </a>
+
+    </header>
+
+
+    <!-- Product Overview -->
+
+    <section class="kpi-container">
+
+        <div class="kpi-card">
+            <h3>💰 Average Price</h3>
+
+            <div class="kpi-value">
+                ₹{{ "{:,.2f}".format(average_price) }}
+            </div>
+
+            <p>Average selling price</p>
+        </div>
+
+
+        <div class="kpi-card">
+            <h3>📦 Units Sold</h3>
+
+            <div class="kpi-value">
+                {{ total_quantity }}
+            </div>
+
+            <p>Total quantity purchased</p>
+        </div>
+
+
+        <div class="kpi-card">
+            <h3>👥 Customers</h3>
+
+            <div class="kpi-value">
+                {{ total_customers }}
+            </div>
+
+            <p>Customers who purchased</p>
+        </div>
+
+
+        <div class="kpi-card">
+            <h3>⭐ Customer Rating</h3>
+
+            <div class="kpi-value">
+                4.5 / 5
+            </div>
+
+            <p>Customer feedback rating</p>
+        </div>
+
+    </section>
+
+
+    <!-- Product Insights -->
+
+    <section class="section">
+
+        <div class="section-header">
+            <h2>Product Insights 🤖</h2>
+
+            <p>
+                Understand customer purchase activity before making a decision.
+            </p>
+        </div>
+
+
+        <div class="comparison-cards">
+
+            <div class="comparison-card">
+
+                <h3>👥 Customer Activity</h3>
+
+                <p>
+                    This product has been purchased by
+                    <strong>{{ total_customers }}</strong>
+                    customers.
+                </p>
+
+            </div>
+
+
+            <div class="comparison-card">
+
+                <h3>📦 Purchase Volume</h3>
+
+                <p>
+                    A total of
+                    <strong>{{ total_quantity }}</strong>
+                    units have been purchased.
+                </p>
+
+            </div>
+
+
+            <div class="comparison-card">
+
+                <h3>⭐ Quality Feedback</h3>
+
+                <p>
+                    Customers have given this product an average
+                    rating of <strong>4.5 / 5</strong>.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Reviews -->
+
+    <section class="section">
+
+        <div class="section-header">
+
+            <h2>Customer Reviews 💬</h2>
+
+            <p>What customers say about this product</p>
+
+        </div>
+
+
+        <div class="comparison-cards">
+
+            <div class="comparison-card">
+
+                <h3>⭐ 5.0</h3>
+
+                <p>
+                    Good product and satisfied with the purchase.
+                </p>
+
+                <small>Verified Customer</small>
+
+            </div>
+
+
+            <div class="comparison-card">
+
+                <h3>⭐ 4.5</h3>
+
+                <p>
+                    Good quality and useful for regular purchase.
+                </p>
+
+                <small>Verified Customer</small>
+
+            </div>
+
+
+            <div class="comparison-card">
+
+                <h3>⭐ 4.0</h3>
+
+                <p>
+                    Overall good experience with this product.
+                </p>
+
+                <small>Verified Customer</small>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Buy Section -->
+
+    <section class="section product-buy-section">
+
+    <h2>Ready to Buy? 🛒</h2>
+
+    <p>
+        Add this product to your shopping cart.
+    </p>
+
+    <form method="POST"
+          action="{{ url_for('add_to_cart', product_name=product_name) }}">
+
+        <button type="submit" class="buy-product-btn">
+            🛒 Add to Cart
+        </button>
+
+    </form>
+
+</section>
+
+</main>
+
+</body>
+</html>

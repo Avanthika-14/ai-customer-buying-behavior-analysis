@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Customer Buying Behavior Analysis</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <h2>AI Insights</h2>
+            <p>Customer Analytics</p>
+        </div>
+
+        <nav>
+            <a href="#" class="active">Dashboard</a>
+            <a href="{{ url_for('customers') }}">Customers</a>
+            <a href="{{ url_for('segmentation') }}">Segmentation</a>
+            <a href="{{ url_for('month_comparison') }}">Month Comparison</a>
+            <a href="{{ url_for('demand_prediction') }}">Demand Prediction</a>
+            <a href="{{ url_for('ai_insights') }}">AI Insights</a>
+            <a href="{{ url_for('reports') }}">Reports</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </nav>
+
+    </aside>
+
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Header -->
+        <header class="topbar">
+
+            <div>
+                <h1>Customer Buying Behavior Analysis</h1>
+                <p>Last Month vs This Month</p>
+            </div>
+
+            <div class="user">
+                <span>Welcome</span>
+                <strong>Admin</strong>
+            </div>
+
+        </header>
+
+
+        <!-- KPI Cards -->
+        <section class="kpi-container">
+
+            <div class="kpi-card">
+                <h3>Total Orders</h3>
+                <div class="kpi-value">{{ "{:,}".format(total_orders) }}</div>
+                <p class="positive">↑ 14.2% from last month</p>
+            </div>
+
+            <div class="kpi-card">
+                <h3>Total Customers</h3>
+                <div class="kpi-value">{{ "{:,}".format(total_customers) }}</div>
+                <p class="positive">↑ 6.3% from last month</p>
+            </div>
+
+            <div class="kpi-card">
+                <h3>Total Revenue</h3>
+                <div class="kpi-value">₹{{ "{:,.2f}".format(total_revenue) }}</div>
+                <p class="positive">↑ 8.6% from last month</p>
+            </div>
+
+            <div class="kpi-card">
+                <h3>Average Order Value</h3>
+                <div class="kpi-value">₹{{ "{:,.2f}".format(average_order_value) }}</div>
+                <p class="positive">↑ 4.8% from last month</p>
+            </div>
+
+        </section>
+
+        <section class="section">
+
+    <div class="section-header">
+        <h2>Customer Activity 👥</h2>
+        <p>Monitor customer login activity and online users</p>
+    </div>
+
+    <div class="kpi-container">
+
+        <div class="kpi-card">
+            <h3>Active Customers</h3>
+            <div class="kpi-value">
+                {{ active_customers }}
+            </div>
+            <p>Currently online</p>
+        </div>
+
+        <div class="kpi-card">
+            <h3>Customer Logins</h3>
+            <div class="kpi-value">
+                {{ total_customer_logins }}
+            </div>
+            <p>Customers logged in</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <div class="section-header">
+        <h2>Recent Customer Activity 🔔</h2>
+        <p>Customer login status and activity</p>
+    </div>
+
+    <div class="chart-box">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Customer ID</th>
+                    <th>Email</th>
+                    <th>Login Time</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for customer in customer_activity %}
+
+                <tr>
+                    <td>{{ customer.customer_id }}</td>
+                    <td>{{ customer.email }}</td>
+                    <td>{{ customer.login_time }}</td>
+
+                    <td>
+                        {% if customer.status == "Online" %}
+                            🟢 Online
+                        {% else %}
+                            🔴 Offline
+                        {% endif %}
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+                {% if not customer_activity %}
+                <tr>
+                    <td colspan="4" style="text-align:center;">
+                        No customer has logged in yet.
+                    </td>
+                </tr>
+                {% endif %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+        <!-- Comparison -->
+        <section class="section">
+
+            <div class="section-header">
+                <h2>Monthly Performance</h2>
+                <section class="section">
+
+    <div class="section-header">
+        <h2>Category-wise Buying Behavior</h2>
+        <p>Revenue by product category</p>
+    </div>
+
+    <div class="chart-box">
+        <canvas id="categoryChart"></canvas>
+    </div>
+
+</section>
+                <div class="comparison-cards">
+
+    <div class="comparison-card">
+        <h3>Orders</h3>
+
+        <p>
+            Last Month:
+            <strong>{{ last_orders }}</strong>
+        </p>
+
+        <p>
+            This Month:
+            <strong>{{ this_orders }}</strong>
+        </p>
+    </div>
+
+
+    <div class="comparison-card">
+        <h3>Customers</h3>
+
+        <p>
+            Last Month:
+            <strong>{{ last_customers }}</strong>
+        </p>
+
+        <p>
+            This Month:
+            <strong>{{ this_customers }}</strong>
+        </p>
+    </div>
+
+
+    <div class="comparison-card">
+        <h3>Revenue</h3>
+
+        <p>
+            Last Month:
+            <strong>₹{{ "{:,.2f}".format(last_revenue) }}</strong>
+        </p>
+
+        <p>
+            This Month:
+            <strong>₹{{ "{:,.2f}".format(this_revenue) }}</strong>
+        </p>
+    </div>
+
+</div>
+
+                <select>
+                    <option>Last Month vs This Month</option>
+                </select>
+            </div>
+
+            <div class="chart-box">
+                <canvas id="monthlyChart"></canvas>
+            </div>
+
+        </section>
+        <section class="section">
+
+    <div class="section-header">
+        <h2>Customer Segmentation</h2>
+        <p>Customer distribution by buying behavior</p>
+    </div>
+
+    <div class="chart-box">
+        <canvas id="segmentChart"></canvas>
+    </div>
+    <section class="section">
+
+    <div class="section-header">
+        <h2>Demand Prediction</h2>
+        <p>Predicted demand for next month by category</p>
+    </div>
+
+    <div class="chart-box">
+        <canvas id="demandChart"></canvas>
+    </div>
+
+</section>
+
+</section>
+
+
+        <!-- Two Column Section -->
+        <section class="two-column">
+
+            <div class="panel">
+
+                <h2>Customer Segments</h2>
+
+                <div class="segment">
+                    <span>High Value Customers</span>
+                    <strong>28%</strong>
+                </div>
+
+                <div class="segment">
+                    <span>Regular Customers</span>
+                    <strong>35%</strong>
+                </div>
+
+                <div class="segment">
+                    <span>Occasional Customers</span>
+                    <strong>22%</strong>
+                </div>
+
+                <div class="segment">
+                    <span>At-Risk Customers</span>
+                    <strong>15%</strong>
+                </div>
+
+            </div>
+
+
+            <div class="panel">
+
+                <h2>AI Business Insights</h2>
+
+                <div class="insight">
+                    <span>📈</span>
+                    <p>Customer activity increased compared with the previous month.</p>
+                </div>
+
+                <div class="insight">
+                    <span>🛒</span>
+                    <p>Several product categories show increasing purchase activity.</p>
+                </div>
+
+                <div class="insight">
+                    <span>🎯</span>
+                    <p>High-value customers contribute significantly to total orders.</p>
+                </div>
+
+                <div class="insight">
+                    <span>🔮</span>
+                    <p>Demand prediction indicates potential growth in selected products.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Footer -->
+        <footer>
+            <p>AI-Driven Customer Buying Behavior Analysis © 2026</p>
+        </footer>
+
+        <!-- Customer Activity -->
+<section class="section">
+
+    <div class="section-header">
+        <h2>Customer Activity 👥</h2>
+        <p>Monitor customer login activity and online users</p>
+    </div>
+
+    <div class="kpi-container">
+
+        <div class="kpi-card">
+            <h3>Active Customers</h3>
+            <div class="kpi-value">{{ active_customers }}</div>
+            <p>Currently online</p>
+        </div>
+
+        <div class="kpi-card">
+            <h3>Customer Logins</h3>
+            <div class="kpi-value">{{ total_customer_logins }}</div>
+            <p>Customers logged in</p>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="section">
+
+    <div class="section-header">
+        <h2>Recent Customer Orders 🛍️</h2>
+        <p>Monitor customer purchases and order activity</p>
+    </div>
+
+    <div class="chart-box">
+
+        {% if customer_orders %}
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer ID</th>
+                    <th>Email</th>
+                    <th>Products</th>
+                    <th>Order Time</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for order in customer_orders %}
+
+                <tr>
+
+                    <td>
+                        <strong>{{ order.order_id }}</strong>
+                    </td>
+
+                    <td>
+                        {{ order.customer_id }}
+                    </td>
+
+                    <td>
+                        {{ order.email }}
+                    </td>
+
+                    <td>
+                         {% for item in order["items"] %}
+                             {{ item["product"] }}
+                             {% if not loop.last %}, {% endif %}
+                         {% endfor %}
+                    </td>
+
+                    <td>
+                        {{ order.order_time }}
+                    </td>
+
+                    <td>
+                        🟢 {{ order.status }}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        {% else %}
+
+        <p style="text-align:center;">
+            No customer orders yet. 🛒
+        </p>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+<!-- Recent Customer Activity -->
+<section class="section">
+
+    <div class="section-header">
+        <h2>Recent Customer Activity 🔔</h2>
+        <p>Customer login status and activity</p>
+    </div>
+
+    <div class="chart-box">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Customer ID</th>
+                    <th>Email</th>
+                    <th>Login Time</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for customer in customer_activity %}
+
+                <tr>
+
+                    <td>{{ customer.customer_id }}</td>
+
+                    <td>{{ customer.email }}</td>
+
+                    <td>{{ customer.login_time }}</td>
+
+                    <td>
+                        {% if customer.status == "Online" %}
+                            🟢 Online
+                        {% else %}
+                            🔴 Offline
+                        {% endif %}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+
+                {% if not customer_activity %}
+
+                <tr>
+
+                    <td colspan="4" style="text-align:center;">
+                        No customer has logged in yet.
+                    </td>
+
+                </tr>
+
+                {% endif %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+    </main>
+
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+</body>
+</html>

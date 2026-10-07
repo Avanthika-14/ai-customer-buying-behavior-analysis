@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Order Successful</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<main class="main-content">
+
+    <section class="section">
+
+        <div class="comparison-card"
+             style="text-align:center;">
+
+            <h1>🎉 Order Placed Successfully!</h1>
+
+            <p>Your order has been placed successfully.</p>
+
+            <h2>Order ID</h2>
+
+            <h3>{{ order.order_id }}</h3>
+
+            <p>
+                <strong>Status:</strong>
+                {{ order.status }}
+            </p>
+
+            <p>
+                <strong>Order Time:</strong>
+                {{ order.order_time }}
+            </p>
+
+            <br>
+
+            <a href="{{ url_for('customer_dashboard') }}"
+               class="view-product-btn">
+                📊 Go to Dashboard
+            </a>
+
+            <a href="{{ url_for('products') }}"
+               class="view-product-btn">
+                🛍️ Continue Shopping
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+
+</body>
+</html>

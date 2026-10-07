@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Login | AI Customer Analytics</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <div class="login-card">
+
+            <div class="login-logo">
+                <div class="logo-icon">AI</div>
+                <h1>Admin Portal</h1>
+                <p>Customer Buying Behavior Analysis</p>
+            </div>
+
+            <form method="POST" action="{{ url_for('login') }}">
+
+    <div class="input-group">
+        <label for="email">Admin Email</label>
+
+        <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Enter admin email"
+            required
+        >
+    </div>
+
+    <div class="input-group">
+        <label for="password">Password</label>
+
+        <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter password"
+            required
+        >
+    </div>
+
+    <div class="login-options">
+
+        <label>
+            <input type="checkbox">
+            Remember me
+        </label>
+
+        <a href="#">Forgot Password?</a>
+
+    </div>
+
+    <button type="submit" class="login-btn">
+        Sign In
+    </button>
+
+</form>
+
+            <form method="POST" action="{{ url_for('login') }}"></form>
+
+            <div class="login-footer">
+                <p>Secure Admin Access</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

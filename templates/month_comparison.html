@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Month Comparison</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <h1>Month Comparison</h1>
+                <p>Last Month vs This Month</p>
+            </div>
+        </header>
+
+        <section class="section">
+
+            <div class="section-header">
+                <h2>Monthly Performance</h2>
+                <p>Compare orders, customers and revenue</p>
+            </div>
+
+            <div class="comparison-cards">
+
+                <div class="comparison-card">
+                    <h3>Orders</h3>
+                    <p>Last Month: <strong>{{ last_orders }}</strong></p>
+                    <p>This Month: <strong>{{ this_orders }}</strong></p>
+                </div>
+
+                <div class="comparison-card">
+                    <h3>Customers</h3>
+                    <p>Last Month: <strong>{{ last_customers }}</strong></p>
+                    <p>This Month: <strong>{{ this_customers }}</strong></p>
+                </div>
+
+                <div class="comparison-card">
+                    <h3>Revenue</h3>
+                    <p>Last Month: <strong>₹{{ "{:,.2f}".format(last_revenue) }}</strong></p>
+                    <p>This Month: <strong>₹{{ "{:,.2f}".format(this_revenue) }}</strong></p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>
